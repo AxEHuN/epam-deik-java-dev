@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
@@ -40,6 +42,22 @@ public class MovieServiceImpl implements MovieService {
             movieRepository.deleteById(name);
         } else {
             System.out.println("Film not found");
+        }
+    }
+
+    public List<Movie> getMovies() {
+        return movieRepository.findAll();
+    }
+
+    public String listMovies() {
+        if (getMovies().isEmpty()) {
+            return ("There are no movies at the moment");
+        } else {
+            StringBuilder curr = new StringBuilder();
+            for (var film : getMovies()) {
+                curr.append(film.toString()).append("\n");
+            }
+            return curr.toString();
         }
     }
 

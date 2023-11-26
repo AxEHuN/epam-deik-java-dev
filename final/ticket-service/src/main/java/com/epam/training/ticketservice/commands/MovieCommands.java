@@ -34,7 +34,10 @@ public class MovieCommands {
         movieService.deleteMovie(name);
     }
 
-
+    @ShellMethod(value = "List movies", key = "list movies")
+    public String listMovies() {
+        return movieService.listMovies();
+    }
 
 
 

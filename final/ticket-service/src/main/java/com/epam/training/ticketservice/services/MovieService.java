@@ -8,4 +8,6 @@ public interface MovieService {
     void updateMovie(String name, String type, Integer length);
 
     void deleteMovie(String name);
+
+    String listMovies();
 }
