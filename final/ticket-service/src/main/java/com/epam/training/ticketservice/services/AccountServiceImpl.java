@@ -1,11 +1,12 @@
 package com.epam.training.ticketservice.services;
 
 import com.epam.training.ticketservice.model.Account;
-import com.epam.training.ticketservice.model.AccountType;
 import com.epam.training.ticketservice.repositories.AccountRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.awt.font.OpenType;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,13 +41,9 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public String describeAccount() {
-        if (loggedAccount == null) {
-            return "You are not signed in";
-        }else{
-            if (loggedAccount.getType() == AccountType.ADMIN) return "Signed in with privileged account " + loggedAccount.getUsername();
-            else return "Signed in with account " + loggedAccount.getUsername();
-        }
+    public Optional<Account> describeAccount() {
+        return Optional.ofNullable(loggedAccount);
     }
+
 
 }

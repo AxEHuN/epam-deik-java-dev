@@ -1,8 +1,10 @@
 package com.epam.training.ticketservice.commands;
 
+import com.epam.training.ticketservice.model.AccountType;
 import com.epam.training.ticketservice.services.AccountService;
 import com.epam.training.ticketservice.services.AccountServiceImpl;
 import lombok.AllArgsConstructor;
+import org.hibernate.usertype.UserType;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
@@ -21,6 +23,15 @@ public class AccountCommands {
     }
     @ShellMethod(key = "describe account", value = "describe account")
     public void describeAccount(){
-        System.out.println(accountService.describeAccount());
+        var user = accountService.describeAccount();
+        if (user.isEmpty()) {
+            System.out.println("You are not signed in");
+        }else {
+            if (user.get().getType() == AccountType.ADMIN)
+                System.out.println("Signed in with privileged account " + user.get().getUsername());
+            else {
+                System.out.println("Signed in with account " + user.get().getUsername());
+            }
+        }
     }
 }

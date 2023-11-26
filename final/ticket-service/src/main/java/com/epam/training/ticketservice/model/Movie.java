@@ -17,9 +17,6 @@ import javax.persistence.Id;
 @Builder
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private String movieName;
     private String movieType;
     private int movieLength;
