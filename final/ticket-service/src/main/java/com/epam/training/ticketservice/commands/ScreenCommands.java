@@ -29,6 +29,13 @@ public class ScreenCommands {
                 new Screen(filmName, roomName, LocalDateTime.parse(start, formatter)));
     }
 
+    @ShellMethod(value = "Delete screening", key = "delete screening")
+    @ShellMethodAvailability(value = "isAdminLoggedIn")
+    public void deleteScreening(String filmName, String roomName, String start) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        screeningService.deleteScreening(new Screen(filmName, roomName, LocalDateTime.parse(start, formatter)));
+    }
 
     private Availability isAdminLoggedIn() {
         var account = accountService.describeAccount();

@@ -80,6 +80,16 @@ public class ScreeningServiceImpl implements ScreeningService{
 
     @Override
     public void deleteScreening(Screen screen) {
+        if (screeningRepository.findByAll(screen.getFilmName(),
+                screen.getRoomName(),
+                screen.getStart()).isPresent()) {
+            Long id = screeningRepository.findByAll(screening.getFilmName(),
+                    screen.getRoomName(),
+                    screen.getStart()).get().getId();
 
+            screeningRepository.deleteById(id);
+        } else {
+            System.out.print("Screening not found");
+        }
     }
 }
