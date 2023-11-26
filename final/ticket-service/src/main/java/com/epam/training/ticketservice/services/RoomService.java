@@ -9,6 +9,6 @@ public interface RoomService {
     void createRoom(Room room);
     void updateRoom(String roomName, Integer numberOfRows, Integer numberOfColumns);
     void deleteRoom(String roomName);
-    String listRooms();
+    StringBuilder listRooms();
     List<Room> getRooms();
 }

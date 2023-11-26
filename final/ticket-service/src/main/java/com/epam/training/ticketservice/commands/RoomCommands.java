@@ -25,12 +25,24 @@ public class RoomCommands {
     }
 
     @ShellMethod(value = "Update room", key = "update room")
-    @ShellMethodAvailability(value = "isAdminLoggedIn")
+    @ShellMethodAvailability("isAdminLoggedIn")
     public void updateRoom(String name, Integer numberOfRows, Integer numberOfColumns) {
         roomService.updateRoom(name,
                 numberOfRows,
                 numberOfColumns);
     }
+
+    @ShellMethod(value = "Delete room", key = "delete room")
+    @ShellMethodAvailability("isAdminLoggedIn")
+    public void deleteRoom(String name) {
+        roomService.deleteRoom(name);
+    }
+
+    @ShellMethod(value = "List rooms", key = "list rooms")
+    public StringBuilder listRooms() {
+        return roomService.listRooms();
+    }
+
 
     private Availability isAdminLoggedIn() {
         var account = accountService.describeAccount();

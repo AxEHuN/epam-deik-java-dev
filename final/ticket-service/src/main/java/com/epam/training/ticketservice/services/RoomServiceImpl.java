@@ -29,16 +29,28 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void deleteRoom(String roomName) {
-
+        if (roomRepository.findById(roomName).isPresent()) {
+            roomRepository.deleteById(roomName);
+        } else {
+            System.out.print("Room does not exists");
+        }
     }
 
     @Override
-    public String listRooms() {
-        return null;
+    public StringBuilder listRooms() {
+        if (getRooms().isEmpty()) {
+            return new StringBuilder("There are no rooms at the moment");
+        } else {
+            StringBuilder curr = new StringBuilder();
+            for (var room : getRooms()) {
+                curr.append(room.toString()).append("\n");
+            }
+            return curr;
+        }
     }
 
     @Override
     public List<Room> getRooms() {
-        return null;
+        return roomRepository.findAll();
     }
 }
