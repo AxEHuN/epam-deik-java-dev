@@ -16,7 +16,7 @@ public class DataInit {
     private boolean initAdmin;
 
     @PostConstruct
-    public void initAdmin(){
+    public void init(){
         if (initAdmin){
             if (accountRepository.findByUsername("admin").isEmpty()){
                 Account admin = new Account("admin","admin",AccountType.ADMIN);
