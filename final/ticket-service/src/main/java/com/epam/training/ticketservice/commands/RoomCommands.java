@@ -24,6 +24,14 @@ public class RoomCommands {
                 numberOfColumns));
     }
 
+    @ShellMethod(value = "Update room", key = "update room")
+    @ShellMethodAvailability(value = "isAdminLoggedIn")
+    public void updateRoom(String name, Integer numberOfRows, Integer numberOfColumns) {
+        roomService.updateRoom(name,
+                numberOfRows,
+                numberOfColumns);
+    }
+
     private Availability isAdminLoggedIn() {
         var account = accountService.describeAccount();
         if (account.isPresent()){

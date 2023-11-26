@@ -20,7 +20,11 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void updateRoom(String roomName, Integer numberOfRows, Integer numberOfColumns) {
-
+        if (roomRepository.findById(roomName).isPresent()) {
+            roomRepository.save(new Room(roomName, numberOfRows, numberOfColumns));
+        } else {
+            System.out.print("Room does not exists");
+        }
     }
 
     @Override
