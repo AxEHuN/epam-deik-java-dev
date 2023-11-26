@@ -23,13 +23,13 @@ public class MovieCommands {
     }
 
     @ShellMethod(value = "Update movie", key = "update movie")
-    @ShellMethodAvailability(value = "isAdminLoggedIn")
+    @ShellMethodAvailability("isAdminLoggedIn")
     public void updateMovie(String name, String type, Integer length) {
         movieService.updateMovie(name, type, length);
     }
 
     @ShellMethod(value = "Delete movie", key = "delete movie")
-    @ShellMethodAvailability(value = "isAdminLoggedIn")
+    @ShellMethodAvailability("isAdminLoggedIn")
     public void deleteMovie(String name) {
         movieService.deleteMovie(name);
     }
