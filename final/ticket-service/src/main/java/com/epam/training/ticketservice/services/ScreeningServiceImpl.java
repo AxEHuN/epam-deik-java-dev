@@ -1,5 +1,6 @@
 package com.epam.training.ticketservice.services;
 
+import com.epam.training.ticketservice.model.Movie;
 import com.epam.training.ticketservice.model.Room;
 import com.epam.training.ticketservice.model.Screen;
 import com.epam.training.ticketservice.repositories.MovieRepository;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -83,7 +85,7 @@ public class ScreeningServiceImpl implements ScreeningService{
         if (screeningRepository.findByAll(screen.getFilmName(),
                 screen.getRoomName(),
                 screen.getStart()).isPresent()) {
-            Long id = screeningRepository.findByAll(screening.getFilmName(),
+            Long id = screeningRepository.findByAll(screen.getFilmName(),
                     screen.getRoomName(),
                     screen.getStart()).get().getId();
 
@@ -91,5 +93,28 @@ public class ScreeningServiceImpl implements ScreeningService{
         } else {
             System.out.print("Screening not found");
         }
+    }
+
+
+    @Override
+    public String listScreenings() {
+        if (getScreenings().isEmpty()) {
+            return ("There are no screenings");
+        } else {
+            String curr = "";
+            for (var screening : getScreenings()) {
+                Movie movie = movieRepository.findById(screening.getFilmName()).get();
+                Room room = roomRepository.findById(screening.getRoomName()).get();
+
+                String text = movie.getMovieName() + " (" + movie.getMovieType() + ", "
+                        + movie.getMovieLength() + " minutes), screened in room " + room.getName() + ", at "
+                        + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(screening.getStart());
+                curr += text + "\n";
+            }
+            return curr;
+        }
+    }
+    public List<Screen> getScreenings() {
+        return screeningRepository.findAll();
     }
 }

@@ -3,7 +3,6 @@ package com.epam.training.ticketservice.commands;
 import com.epam.training.ticketservice.model.AccountType;
 import com.epam.training.ticketservice.model.Screen;
 import com.epam.training.ticketservice.services.AccountService;
-import com.epam.training.ticketservice.services.RoomService;
 import com.epam.training.ticketservice.services.ScreeningService;
 import lombok.AllArgsConstructor;
 import org.springframework.shell.Availability;
@@ -37,6 +36,11 @@ public class ScreenCommands {
         screeningService.deleteScreening(new Screen(filmName, roomName, LocalDateTime.parse(start, formatter)));
     }
 
+    @ShellMethod(value = "List screenings", key = "list screenings")
+    public String listScreenings() {
+        return screeningService.listScreenings();
+    }
+
     private Availability isAdminLoggedIn() {
         var account = accountService.describeAccount();
         if (account.isPresent()){
@@ -50,4 +54,5 @@ public class ScreenCommands {
             return Availability.unavailable("You are not logged in as admin");
         }
     }
+
 }
