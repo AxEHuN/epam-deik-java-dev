@@ -10,7 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface ScreeningServiceRepository extends JpaRepository<Screen, Long> {
-    Optional<Screen> findByAll(String filmName, String roomName, LocalDateTime start);
+
+    Optional<Screen> findByFilmNameAndRoomNameAndStart(String filmName, String roomName, LocalDateTime start);
 
     List<Screen> findByRoomName(String roomName);
+
+    // void deleteByFilmNameAndRoomNameAndStart(String filmName, String roomName, LocalDateTime start);
 }

@@ -2,9 +2,7 @@ package com.epam.training.ticketservice.commands;
 
 import com.epam.training.ticketservice.model.AccountType;
 import com.epam.training.ticketservice.services.AccountService;
-import com.epam.training.ticketservice.services.AccountServiceImpl;
 import lombok.AllArgsConstructor;
-import org.hibernate.usertype.UserType;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 

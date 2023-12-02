@@ -1,5 +1,4 @@
 package com.epam.training.ticketservice.services;
-
 import com.epam.training.ticketservice.model.Movie;
 import com.epam.training.ticketservice.model.Room;
 import com.epam.training.ticketservice.model.Screen;
@@ -8,7 +7,6 @@ import com.epam.training.ticketservice.repositories.RoomRepository;
 import com.epam.training.ticketservice.repositories.ScreeningServiceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -82,10 +80,10 @@ public class ScreeningServiceImpl implements ScreeningService{
 
     @Override
     public void deleteScreening(Screen screen) {
-        if (screeningRepository.findByAll(screen.getFilmName(),
+        if (screeningRepository.findByFilmNameAndRoomNameAndStart(screen.getFilmName(),
                 screen.getRoomName(),
                 screen.getStart()).isPresent()) {
-            Long id = screeningRepository.findByAll(screen.getFilmName(),
+            Long id = screeningRepository.findByFilmNameAndRoomNameAndStart(screen.getFilmName(),
                     screen.getRoomName(),
                     screen.getStart()).get().getId();
 
