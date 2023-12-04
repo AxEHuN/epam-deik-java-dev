@@ -36,7 +36,7 @@ public class MovieServiceImpl implements MovieService {
         if (movieRepository.findById(name).isPresent()) {
             movieRepository.deleteById(name);
         } else {
-            throw new IllegalArgumentException("Movie not found");
+            throw new IllegalArgumentException("There are no movies at the moment");
         }
     }
 

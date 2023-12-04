@@ -81,7 +81,7 @@ public class MovieServiceTest {
         // When and Then
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> underTest.deleteMovie("The movie"));
 
-        assertEquals("Movie not found", exception.getMessage());
+        assertEquals("There are no movies at the moment", exception.getMessage());
     }
     @Test
     public void testGetMovies() {

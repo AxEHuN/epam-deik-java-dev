@@ -23,7 +23,7 @@ public class AccountServiceImpl implements AccountService{
         }else {
             if (user.get().getPassword().equals(password)) {
                 loggedAccount = user.get();
-                loginMessage = "Signed in with privileged account " + username;
+                loginMessage = "Signed in with privileged account '" + username+"'";
             }else{
                 loginMessage = "Login failed due to incorrect credentials";
             }

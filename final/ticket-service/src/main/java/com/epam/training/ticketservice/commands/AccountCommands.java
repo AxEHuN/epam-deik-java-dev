@@ -34,9 +34,9 @@ public class AccountCommands {
             System.out.println("You are not signed in");
         }else {
             if (user.get().getType() == AccountType.ADMIN)
-                System.out.println("Signed in with privileged account " + user.get().getUsername());
+                System.out.println("Signed in with privileged account " + "'"+user.get().getUsername()+"'");
             else {
-                System.out.println("Signed in with account " + user.get().getUsername());
+                System.out.println("Signed in with account " + "'" +user.get().getUsername()+"'");
             }
         }
     }
