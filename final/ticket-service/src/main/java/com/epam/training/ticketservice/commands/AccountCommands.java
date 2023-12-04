@@ -11,6 +11,14 @@ import org.springframework.shell.standard.ShellMethod;
 public class AccountCommands {
     private final AccountService accountService;
 
+    @ShellMethod(key = "sign up", value = "sign up <username> <password>")
+    public void signUp(String username, String password) {
+        accountService.createAccount(username, password);
+    }
+    @ShellMethod(key = "sign in", value = "sign in <username> <password>")
+    public void signIn(String username, String password) {
+        accountService.signIn(username, password);
+    }
     @ShellMethod(key = "sign in privileged", value = "sign in privileged <username> <password>")
     public String signInPrivileges(String username, String password){
         return accountService.signInPrivileged(username, password);

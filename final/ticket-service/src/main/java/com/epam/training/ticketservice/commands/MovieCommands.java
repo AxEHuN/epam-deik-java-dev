@@ -38,10 +38,6 @@ public class MovieCommands {
     public String listMovies() {
         return movieService.listMovies();
     }
-
-
-
-
     private Availability isAdminLoggedIn() {
         var account = accountService.describeAccount();
         if (account.isPresent()){

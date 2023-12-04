@@ -28,7 +28,7 @@ public class ScreeningServiceImpl implements ScreeningService{
                 return ("This would start in the break period after another screening in this room");
             } else {
                 screeningRepository.save(screen);
-                return "User succesfully added";
+                return "Screening succesfully added";
             }
 
         } else {

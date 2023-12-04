@@ -9,4 +9,6 @@ public interface AccountService {
     String signInPrivileged(String username, String password);
     void signOut();
     Optional<Account> describeAccount();
+    void createAccount(String username, String password);
+    void signIn(String username, String password);
 }
