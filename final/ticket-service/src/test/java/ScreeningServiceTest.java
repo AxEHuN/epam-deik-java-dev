@@ -66,7 +66,7 @@ public class ScreeningServiceTest {
         given(roomRepository.existsById(exampleScreen.getRoomName())).willReturn(true);
         given(movieRepository.findById(exampleScreen.getFilmName())).willReturn(Optional.of(exampleMovie));
         given(screeningRepository.findByRoomName(exampleScreen.getRoomName())).willReturn(List.of());
-        String expected = "User succesfully added";
+        String expected = "Screening succesfully added";
         //When
         String actual = underTest.createScreening(exampleScreen);
         //Then

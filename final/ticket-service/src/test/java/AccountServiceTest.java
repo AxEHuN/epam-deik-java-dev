@@ -25,6 +25,33 @@ public class AccountServiceTest {
     public void setUp() {
         underTest = new AccountServiceImpl(accountRepository);
     }
+
+    @Test
+    void createAccount() {
+        // Given
+        // When
+        underTest.createAccount("user", "user");
+        // Then
+        verify(accountRepository).save(new Account("user", "user", AccountType.USER));
+    }
+    @Test
+    void createAccountWhenAccountAlreadyExists() {
+        // Given
+        when(accountRepository.findByUsername("user")).thenReturn(Optional.of(new Account("user", "user", AccountType.USER)));
+        // When
+        // Then
+        assertThrows(IllegalStateException.class, () -> underTest.createAccount("user", "user"));
+    }
+    @Test
+    void testSignInWithNoPrivileges() {
+        // Given
+        when(accountRepository.findByUsername("user")).thenReturn(Optional.of(new Account("user", "user", AccountType.USER)));
+        // When
+        underTest.signIn("user", "user");
+        // Then
+        verify(accountRepository).findByUsername("user");
+    }
+
     @Test
     public void testSignInPrivilegedWithCorrectCredentials() {
         //Given
