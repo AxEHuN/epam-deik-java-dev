@@ -21,7 +21,6 @@ public class ScreeningServiceImpl implements ScreeningService{
     @Override
     public String createScreening(Screen screen) {
         if (movieRepository.existsById(screen.getFilmName()) && roomRepository.existsById(screen.getRoomName())) {
-
             List<Screen> screeningList = screeningRepository.findByRoomName(screen.getRoomName());
             if (isOverLapping(screeningList, screen)) {
                 return ("There is an overlapping screening");
@@ -38,7 +37,7 @@ public class ScreeningServiceImpl implements ScreeningService{
 
     }
 
-    private boolean isOverLapping(List<Screen> screeningList, Screen screen) {
+    public boolean isOverLapping(List<Screen> screeningList, Screen screen) {
         boolean isOverLapping = false;
         int screeningLength = movieRepository.findById(screen.getFilmName()).get().getMovieLength();
         LocalDateTime screenStart = screen.getStart();
