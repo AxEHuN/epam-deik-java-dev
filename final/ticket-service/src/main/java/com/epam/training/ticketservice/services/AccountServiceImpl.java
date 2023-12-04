@@ -1,15 +1,10 @@
 package com.epam.training.ticketservice.services;
-
 import com.epam.training.ticketservice.model.Account;
 import com.epam.training.ticketservice.repositories.AccountRepository;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.awt.font.OpenType;
 import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Getter
@@ -24,7 +19,6 @@ public class AccountServiceImpl implements AccountService{
         var user = accountRepository.findByUsername(username);
         if (user.isEmpty()) {
             loginMessage = "Login failed due to incorrect credentials";
-            return loginMessage;
         }else {
             if (user.get().getPassword().equals(password)) {
                 loggedAccount = user.get();
@@ -32,8 +26,8 @@ public class AccountServiceImpl implements AccountService{
             }else{
                 loginMessage = "Login failed due to incorrect credentials";
             }
-            return loginMessage;
         }
+        return loginMessage;
     }
 
     @Override
