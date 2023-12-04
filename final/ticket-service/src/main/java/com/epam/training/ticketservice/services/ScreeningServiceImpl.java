@@ -78,9 +78,9 @@ public class ScreeningServiceImpl implements ScreeningService {
         screeningRepository.findByFilmNameAndRoomNameAndStart(screen.getFilmName(),
             screen.getRoomName(),
             screen.getStart()).ifPresent(existingScreening -> {
-            Long id = existingScreening.getId();
-            screeningRepository.deleteById(id);
-        });
+                Long id = existingScreening.getId();
+                screeningRepository.deleteById(id);
+            });
     }
 
     @Override
