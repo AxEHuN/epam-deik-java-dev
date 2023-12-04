@@ -16,8 +16,8 @@ import java.time.format.DateTimeFormatter;
 @ShellComponent
 @AllArgsConstructor
 public class ScreenCommands {
-    AccountService accountService;
-    ScreeningService screeningService;
+    private final AccountService accountService;
+    private final ScreeningService screeningService;
 
     @ShellMethod(value = "Create screening", key = "create screening")
     @ShellMethodAvailability("isAdminLoggedIn")
@@ -25,7 +25,7 @@ public class ScreenCommands {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         return screeningService.createScreening(
-                new Screen(filmName, roomName, LocalDateTime.parse(start, formatter)));
+            new Screen(filmName, roomName, LocalDateTime.parse(start, formatter)));
     }
 
     @ShellMethod(value = "Delete screening", key = "delete screening")
@@ -43,19 +43,14 @@ public class ScreenCommands {
 
     private Availability isAdminLoggedIn() {
         var account = accountService.describeAccount();
-        if (account.isPresent()){
-            if (account.get().getType() == AccountType.ADMIN){
+        if (account.isPresent()) {
+            if (account.get().getType() == AccountType.ADMIN) {
                 return Availability.available();
-            }
-            else{
+            } else {
                 return Availability.unavailable("You are not logged in as admin");
             }
-        }else{
+        } else {
             return Availability.unavailable("You are not logged in as admin");
         }
     }
-
 }
-
-
-

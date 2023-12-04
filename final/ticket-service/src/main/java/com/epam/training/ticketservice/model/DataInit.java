@@ -12,18 +12,17 @@ import javax.annotation.PostConstruct;
 public class DataInit {
 
     private final AccountRepository accountRepository;
+
     @Value(value = "true")
     private boolean initAdmin;
 
     @PostConstruct
-    public void init(){
-        if (initAdmin){
-            if (accountRepository.findByUsername("admin").isEmpty()){
-                Account admin = new Account("admin","admin",AccountType.ADMIN);
+    public void init() {
+        if (initAdmin) {
+            if (accountRepository.findByUsername("admin").isEmpty()) {
+                Account admin = new Account("admin", "admin", AccountType.ADMIN);
                 accountRepository.save(admin);
             }
         }
     }
-
-
 }

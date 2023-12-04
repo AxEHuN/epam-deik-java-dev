@@ -18,7 +18,7 @@ public class MovieCommands {
 
     @ShellMethod(key = "create movie", value = "create movie")
     @ShellMethodAvailability("isAdminLoggedIn")
-    public void createMovie(String name, String type, int length){
+    public void createMovie(String name, String type, int length) {
         movieService.createMovie(new Movie(name, type, length));
     }
 
@@ -38,16 +38,16 @@ public class MovieCommands {
     public String listMovies() {
         return movieService.listMovies();
     }
+
     private Availability isAdminLoggedIn() {
         var account = accountService.describeAccount();
-        if (account.isPresent()){
-            if (account.get().getType() == AccountType.ADMIN){
+        if (account.isPresent()) {
+            if (account.get().getType() == AccountType.ADMIN) {
                 return Availability.available();
-            }
-            else{
+            } else {
                 return Availability.unavailable("You are not logged in as admin");
             }
-        }else{
+        } else {
             return Availability.unavailable("You are not logged in as admin");
         }
     }

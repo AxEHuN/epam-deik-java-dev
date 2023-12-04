@@ -4,7 +4,9 @@ import com.epam.training.ticketservice.model.Movie;
 import com.epam.training.ticketservice.repositories.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
@@ -31,6 +33,7 @@ public class MovieServiceImpl implements MovieService {
             throw new IllegalArgumentException("Movie not found");
         }
     }
+
     @Override
     public void deleteMovie(String name) {
         if (movieRepository.findById(name).isPresent()) {
@@ -55,5 +58,4 @@ public class MovieServiceImpl implements MovieService {
             return curr.toString();
         }
     }
-
 }

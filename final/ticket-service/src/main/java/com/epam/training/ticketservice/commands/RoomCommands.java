@@ -13,23 +13,23 @@ import org.springframework.shell.standard.ShellMethodAvailability;
 @ShellComponent
 @AllArgsConstructor
 public class RoomCommands {
-    AccountService accountService;
-    RoomService roomService;
+    private final AccountService accountService;
+    private final RoomService roomService;
 
     @ShellMethod(value = "Create room", key = "create room")
     @ShellMethodAvailability("isAdminLoggedIn")
     public void createRoom(String name, Integer numberOfRows, Integer numberOfColumns) {
         roomService.createRoom(new Room(name,
-                numberOfRows,
-                numberOfColumns));
+            numberOfRows,
+            numberOfColumns));
     }
 
     @ShellMethod(value = "Update room", key = "update room")
     @ShellMethodAvailability("isAdminLoggedIn")
     public void updateRoom(String name, Integer numberOfRows, Integer numberOfColumns) {
         roomService.updateRoom(name,
-                numberOfRows,
-                numberOfColumns);
+            numberOfRows,
+            numberOfColumns);
     }
 
     @ShellMethod(value = "Delete room", key = "delete room")
@@ -43,17 +43,15 @@ public class RoomCommands {
         return roomService.listRooms();
     }
 
-
     private Availability isAdminLoggedIn() {
         var account = accountService.describeAccount();
-        if (account.isPresent()){
-            if (account.get().getType() == AccountType.ADMIN){
+        if (account.isPresent()) {
+            if (account.get().getType() == AccountType.ADMIN) {
                 return Availability.available();
-            }
-            else{
+            } else {
                 return Availability.unavailable("You are not logged in as admin");
             }
-        }else{
+        } else {
             return Availability.unavailable("You are not logged in as admin");
         }
     }
