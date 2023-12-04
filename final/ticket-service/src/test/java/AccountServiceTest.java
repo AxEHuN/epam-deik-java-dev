@@ -16,24 +16,63 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class AccountServiceTest {
-    @InjectMocks
-    private AccountServiceImpl underTest;
     @Mock
     private AccountRepository accountRepository;
+    @InjectMocks
+    private AccountServiceImpl underTest;
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         underTest = new AccountServiceImpl(accountRepository);
-
     }
     @Test
     public void testSignInPrivilegedWithCorrectCredentials() {
         //Given
+        when(accountRepository.findByUsername("admin")).thenReturn(Optional.empty());
         //When
-        underTest.signInPrivileged("admin", "admin");
-        //when(accountRepository.findByUsername("admin")).thenReturn(Optional.empty());
+        String result = underTest.signInPrivileged("admin", "admin");
         //Then
         verify(accountRepository).findByUsername("admin");
+        //assertEquals("Signed in with privileged account admin", result);??????????????????????
     }
+    @Test
+    public void testSignInPrivilegedWithIncorrectPassword() {
+        //Given
+        when(accountRepository.findByUsername("admin")).thenReturn(Optional.empty());
+        //When
+        String result = underTest.signInPrivileged("admin", "sajt");
+        //Then
+        assertEquals("Login failed due to incorrect credentials", result);
+    }
+    @Test
+    public void testSignInPrivilegedWithIncorrectUsername() {
+        //Given
+        //When
+        String result = underTest.signInPrivileged("sajt", "admin");
+        //Then
+        assertEquals("Login failed due to incorrect credentials", result);
+    }
+    @Test
+    public void testSignOut() {
+        when(accountRepository.findByUsername("admin")).thenReturn(Optional.empty());
+        underTest.signInPrivileged("admin", "admin");
+        underTest.signOut();
+
+        assertNull(underTest.getLoggedAccount());
+    }
+    @Test
+    public void testSignOutWhenNotSignedIn() {
+        underTest.signOut();
+        assertNull(underTest.getLoggedAccount());
+        assertEquals("You need to log in first.", underTest.loginMessage);
+    }
+    @Test
+    public void testDescribeAccount() {
+        when(accountRepository.findByUsername("admin")).thenReturn(Optional.empty());
+        underTest.signInPrivileged("admin", "admin");
+        assertEquals(Optional.ofNullable(underTest.getLoggedAccount()), underTest.describeAccount());
+    }
+
 }
+
