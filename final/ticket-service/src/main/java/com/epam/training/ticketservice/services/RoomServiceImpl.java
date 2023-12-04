@@ -15,6 +15,8 @@ public class RoomServiceImpl implements RoomService {
     public void createRoom(Room room) {
         if (roomRepository.findById(room.getName()).isEmpty()) {
             roomRepository.save(room);
+        } else {
+            throw new IllegalArgumentException("Room already exists");
         }
     }
 
@@ -23,7 +25,7 @@ public class RoomServiceImpl implements RoomService {
         if (roomRepository.findById(roomName).isPresent()) {
             roomRepository.save(new Room(roomName, numberOfRows, numberOfColumns));
         } else {
-            System.out.print("Room does not exists");
+            throw new IllegalArgumentException("Room does not exists");
         }
     }
 
@@ -32,7 +34,7 @@ public class RoomServiceImpl implements RoomService {
         if (roomRepository.findById(roomName).isPresent()) {
             roomRepository.deleteById(roomName);
         } else {
-            System.out.print("Room does not exists");
+            throw new IllegalStateException("Room does not exists");
         }
     }
 
